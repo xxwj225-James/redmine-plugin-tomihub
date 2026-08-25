@@ -1,5 +1,11 @@
 en:
   tomihub_save: Save
+  tomihub_unconfigured_title: TomiHub AI Co-pilot is not configured yet.
+  tomihub_unconfigured_hint: An administrator can connect it in Administration → TomiHub.
+  tomihub_level_healthy: healthy
+  tomihub_level_at_risk: at risk
+  tomihub_level_critical: critical
+  tomihub_updated: updated
   tomihub_settings_saved: TomiHub settings saved.
   tomihub_actions: Actions
   tomihub_test_connection: Test connection

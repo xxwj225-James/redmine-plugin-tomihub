@@ -1,5 +1,11 @@
 zh:
   tomihub_save: 保存
+  tomihub_unconfigured_title: TomiHub AI 护航尚未配置。
+  tomihub_unconfigured_hint: 管理员可在 管理 → TomiHub 中完成接入。
+  tomihub_level_healthy: 健康
+  tomihub_level_at_risk: 有风险
+  tomihub_level_critical: 危急
+  tomihub_updated: 更新于
   tomihub_settings_saved: TomiHub 设置已保存。
   tomihub_actions: 操作
   tomihub_test_connection: 测试连接

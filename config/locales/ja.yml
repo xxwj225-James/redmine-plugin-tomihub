@@ -1,5 +1,11 @@
 ja:
   tomihub_save: 保存
+  tomihub_unconfigured_title: TomiHub AI Co-pilot は未設定です。
+  tomihub_unconfigured_hint: 管理者が 管理 → TomiHub で接続できます。
+  tomihub_level_healthy: 健全
+  tomihub_level_at_risk: 注意
+  tomihub_level_critical: 危険
+  tomihub_updated: 更新
   tomihub_settings_saved: TomiHub 設定を保存しました。
   tomihub_actions: 操作
   tomihub_test_connection: 接続テスト

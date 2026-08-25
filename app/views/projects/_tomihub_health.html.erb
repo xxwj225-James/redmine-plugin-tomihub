@@ -1,53 +1,61 @@
 <%
-  # Free-tier summary badge. The plugin is a read-only window into TomiHub's
-  # analysis of the mirrored copy of THIS project (matched by redmine_id).
+  # Free-tier summary badge. Server-side fetch (not browser JS): the
+  # self-hosted TomiHub only needs to be reachable from THIS Redmine
+  # server — never from end-user browsers. Cached 60s to keep page
+  # renders fast.
   settings = Setting.plugin_redmine_tomihub
   configured = settings['tomihub_url'].present? && settings['api_key'].present?
+  summary = nil
+  summary_error = false
+  if configured
+    begin
+      lang = ::I18n.locale.to_s.split('-').first
+      summary = Rails.cache.fetch("tomihub_summary_#{project.id}_#{lang}", expires_in: 60.seconds) do
+        RedmineTomihub::Client.new(settings['tomihub_url'], settings['api_key'])
+                             .project_summary(project.id, lang)['data']
+      end
+    rescue RedmineTomihub::Client::Error, StandardError
+      summary_error = true
+    end
+  end
+  score = summary && summary['health_score']
+  level = summary && summary['health_level']
 %>
-<% if configured %>
-  <div id="tomihub-health" class="box" data-redmine-id="<%= project.id %>"
-       data-lang="<%= ::I18n.locale.to_s.split('-').first %>"
-       data-tomihub-url="<%= settings['tomihub_url'] %>">
-    <div class="tomihub-loading"><%= l(:tomihub_loading) %></div>
-  </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var el = document.getElementById('tomihub-health');
-      if (!el) return;
-      var url = el.dataset.tomihubUrl.replace(/\/+$/, '') +
-        '/api/v1/ai/redmine/project-summary?redmine_id=' +
-        encodeURIComponent(el.dataset.redmineId) + '&lang=' + encodeURIComponent(el.dataset.lang);
-      fetch(url, { headers: { 'X-Api-Key': '<%= settings['api_key'] %>', 'Accept': 'application/json' } })
-        .then(function(r) { return r.json(); })
-        .then(function(j) {
-          var d = j.data || {};
-          if (d.health_score === undefined || d.health_score === null) {
-            el.innerHTML = '<p class="nodata"><%= l(:tomihub_no_data) %></p>';
-            return;
-          }
-          var level = d.health_level === 'healthy' ? 'healthy'
-                    : d.health_level === 'at_risk' ? 'at-risk' : 'critical';
-          var html = '<div class="tomihub-badge ' + level + '">';
-          html += '<span class="score">' + d.health_score + '</span>';
-          html += '<span class="label"><%= l(:tomihub_health_label) %> · ' + level + '</span>';
-          html += '</div>';
-          if ((d.top_risks || []).length > 0) {
-            html += '<ul class="tomihub-risks">';
-            (d.top_risks || []).slice(0, 3).forEach(function(r) {
-              html += '<li>⚠ ' + (r.title || '') + '</li>';
-            });
-            html += '</ul>';
-          }
-          html += '<p class="tomihub-cta"><a href="' + el.dataset.tomihubUrl + '" target="_blank" rel="noopener"><%= l(:tomihub_full_analysis) %> →</a></p>';
-          el.innerHTML = html;
-        })
-        .catch(function() {
-          el.innerHTML = '<p class="nodata"><%= l(:tomihub_unreachable) %></p>';
-        });
-    });
-  </script>
-<% else %>
+
+<% if !configured %>
   <div class="box tomihub-setup-prompt">
-    <%= l(:tomihub_connect_prompt_html) %>
+    <p><strong><%= l(:tomihub_unconfigured_title) %></strong></p>
+    <p><%= l(:tomihub_unconfigured_hint) %></p>
+  </div>
+<% elsif summary_error %>
+  <div class="box tomihub-setup-prompt">
+    <p><%= l(:tomihub_unreachable) %></p>
+  </div>
+<% elsif score.nil? %>
+  <div class="box tomihub-setup-prompt">
+    <p><%= l(:tomihub_no_data) %></p>
+  </div>
+<% else %>
+  <div class="box" id="tomihub-health">
+    <div class="tomihub-badge tomihub-<%= level %>">
+      <span class="tomihub-score"><%= score %></span>
+      <span class="tomihub-label"><%= l(:tomihub_health_label) %> ·
+        <%= level == 'healthy' ? l(:tomihub_level_healthy) : level == 'at_risk' ? l(:tomihub_level_at_risk) : l(:tomihub_level_critical) %>
+      </span>
+    </div>
+    <% risks = (summary['top_risks'] || []).first(3) %>
+    <% if risks.any? %>
+      <ul class="tomihub-risks">
+        <% risks.each do |r| %>
+          <li>⚠ <%= r['title'] %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <p class="tomihub-cta">
+      <a href="<%= settings['tomihub_url'] %>" target="_blank" rel="noopener">
+        <%= l(:tomihub_full_analysis) %> →
+      </a>
+      <span class="tomihub-updated">· <%= l(:tomihub_updated) %> <%= summary['updated_at'].to_s[0, 16] %></span>
+    </p>
   </div>
 <% end %>
