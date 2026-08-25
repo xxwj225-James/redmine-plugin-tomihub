@@ -2,8 +2,7 @@
 # ==============================================================
 # Free tier: project health card (score + trend + top risks),
 # pulled from a self-hosted TomiHub instance on the same LAN.
-# Full analysis lives in TomiHub UI — the plugin is the hook,
-# TomiHub is the product (wedge strategy, docs/redmine-plugin-design.md).
+# Full analysis lives in the TomiHub UI — this plugin is the hook.
 #
 # GPL-2.0-or-later — see LICENSE.
 # ==============================================================
