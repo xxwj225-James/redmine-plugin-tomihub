@@ -28,6 +28,11 @@ module RedmineTomihub
       get('/api/v1/ai/redmine/project-summary', params)
     end
 
+    # GET /api/v1/ai/redmine/knowledge-map?redmine_id=N
+    def knowledge_map(redmine_id)
+      get('/api/v1/ai/redmine/knowledge-map', redmine_id: redmine_id)
+    end
+
     # POST /api/v1/redmine/sync — trigger mirror sync (async on TomiHub side)
     def trigger_sync(redmine_url:, redmine_api_key:, project_keys:, full: false)
       post('/api/v1/redmine/sync', {

@@ -1,4 +1,15 @@
 ja:
+  tomihub_stat_open: 未完了
+  tomihub_stat_done: 完了
+  tomihub_stat_bugs: バグ
+  tomihub_trend_14d: 14日間の推移
+  tomihub_kmap_title: プロジェクト知識マップ
+  tomihub_kmap_pages_label: ページ
+  tomihub_kmap_team: チーム
+  tomihub_kmap_onboarding: オンボーディング
+  tomihub_kmap_docs: 元ドキュメント
+  tomihub_kmap_edges: リンク
+  tomihub_kmap_open: TomiHub で知識グラフを見る
   tomihub_save: 保存
   tomihub_unconfigured_title: TomiHub AI Co-pilot は未設定です。
   tomihub_unconfigured_hint: 管理者が 管理 → TomiHub で接続できます。
@@ -29,6 +40,7 @@ ja:
   tomihub_field_redmine_key_hint: >-
     TomiHub が REST 経由でこの Redmine を取得します — Redmine 管理者の
     API キーを入力してください（管理 → API）。LAN 外には共有しないでください。
+  tomihub_field_projects: プロジェクト識別子
   tomihub_field_projects_hint: 同期する Redmine プロジェクト識別子（カンマ区切り）。
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI Co-pilot は未設定です。</strong>

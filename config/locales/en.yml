@@ -1,4 +1,15 @@
 en:
+  tomihub_stat_open: open
+  tomihub_stat_done: done
+  tomihub_stat_bugs: bugs
+  tomihub_trend_14d: 14-day trend
+  tomihub_kmap_title: Project Knowledge Map
+  tomihub_kmap_pages_label: pages
+  tomihub_kmap_team: Team
+  tomihub_kmap_onboarding: Onboarding path
+  tomihub_kmap_docs: Source docs
+  tomihub_kmap_edges: links
+  tomihub_kmap_open: Open knowledge graph in TomiHub
   tomihub_save: Save
   tomihub_unconfigured_title: TomiHub AI Co-pilot is not configured yet.
   tomihub_unconfigured_hint: An administrator can connect it in Administration → TomiHub.
@@ -29,6 +40,7 @@ en:
   tomihub_field_redmine_key_hint: >-
     TomiHub pulls this Redmine over REST — provide a Redmine admin API key
     (Administration → API). Never shared outside your LAN.
+  tomihub_field_projects: Project identifiers
   tomihub_field_projects_hint: Comma-separated Redmine project identifiers to sync.
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI Co-pilot is not configured yet.</strong>

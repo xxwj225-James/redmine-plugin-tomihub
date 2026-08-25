@@ -1,7 +1,7 @@
 # TomiHub AI Co-pilot for Redmine
 # ==============================================================
-# Free tier: project health badge + top risks (read-only summary
-# pulled from a self-hosted TomiHub instance on the same LAN).
+# Free tier: project health card (score + trend + top risks),
+# pulled from a self-hosted TomiHub instance on the same LAN.
 # Full analysis lives in TomiHub UI — the plugin is the hook,
 # TomiHub is the product (wedge strategy, docs/redmine-plugin-design.md).
 #
@@ -26,7 +26,7 @@ Redmine::Plugin.register :redmine_tomihub do
        caption: 'TomiHub', if: proc { User.current.admin? }
 end
 
-# Hook the health badge into the project overview page.
+# Hook the health card into the project overview page.
 # require_relative — Redmine 7 (Zeitwerk) does not expose plugin lib/ to
 # require_dependency at plugin-registration time.
 require_relative 'lib/redmine_tomihub/hooks'

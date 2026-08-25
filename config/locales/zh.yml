@@ -1,4 +1,15 @@
 zh:
+  tomihub_stat_open: 待办
+  tomihub_stat_done: 已完成
+  tomihub_stat_bugs: 缺陷
+  tomihub_trend_14d: 近 14 天趋势
+  tomihub_kmap_title: 项目知识地图
+  tomihub_kmap_pages_label: 页
+  tomihub_kmap_team: 团队
+  tomihub_kmap_onboarding: 上手路径
+  tomihub_kmap_docs: 原始文档
+  tomihub_kmap_edges: 关联
+  tomihub_kmap_open: 在 TomiHub 查看知识图谱
   tomihub_save: 保存
   tomihub_unconfigured_title: TomiHub AI 护航尚未配置。
   tomihub_unconfigured_hint: 管理员可在 管理 → TomiHub 中完成接入。
@@ -28,6 +39,7 @@ zh:
   tomihub_field_redmine_key_hint: >-
     TomiHub 通过 REST 拉取本 Redmine 数据 — 请提供 Redmine 管理员 API Key
     （管理 → API）。仅在内网使用。
+  tomihub_field_projects: 项目标识符
   tomihub_field_projects_hint: 要同步的 Redmine 项目标识符（逗号分隔）。
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI 护航尚未配置。</strong>

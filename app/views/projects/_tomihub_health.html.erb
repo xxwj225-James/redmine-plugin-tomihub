@@ -1,25 +1,61 @@
+<%= stylesheet_link_tag 'redmine_tomihub', plugin: :redmine_tomihub %>
 <%
-  # Free-tier summary badge. Server-side fetch (not browser JS): the
-  # self-hosted TomiHub only needs to be reachable from THIS Redmine
-  # server — never from end-user browsers. Cached 60s to keep page
-  # renders fast.
+  # Free-tier health card + knowledge map block. Server-side render —
+  # TomiHub only needs to be reachable from THIS Redmine server. Cached 60s.
   settings = Setting.plugin_redmine_tomihub
   configured = settings['tomihub_url'].present? && settings['api_key'].present?
   summary = nil
-  summary_error = false
+  knowledge = nil
+  fetch_error = false
   if configured
     begin
       lang = ::I18n.locale.to_s.split('-').first
+      client = RedmineTomihub::Client.new(settings['tomihub_url'], settings['api_key'])
       summary = Rails.cache.fetch("tomihub_summary_#{project.id}_#{lang}", expires_in: 60.seconds) do
-        RedmineTomihub::Client.new(settings['tomihub_url'], settings['api_key'])
-                             .project_summary(project.id, lang)['data']
+        client.project_summary(project.id, lang)['data']
       end
     rescue RedmineTomihub::Client::Error, StandardError
-      summary_error = true
+      fetch_error = true
+    end
+    # Knowledge map is optional — its failure must not break the health card
+    begin
+      knowledge = Rails.cache.fetch("tomihub_kmap_#{project.id}", expires_in: 300.seconds) do
+        RedmineTomihub::Client.new(settings['tomihub_url'], settings['api_key'])
+                             .knowledge_map(project.id)['data']
+      end
+    rescue RedmineTomihub::Client::Error, StandardError
+      knowledge = nil
     end
   end
   score = summary && summary['health_score']
   level = summary && summary['health_level']
+  stats = (summary && summary['stats']) || {}
+  trend = (summary && summary['trend']) || []
+  # Risk dot color by category keyword (no emojis — neutral dots like TomiHub)
+  def risk_dot_class(title)
+    t = title.to_s.downcase
+    if t.include?('bug') || t.include?('quality')
+      'dot-quality'
+    elsif t.include?('overdue') || t.include?('stalled') || t.include?('ratio') || t.include?('outpace')
+      'dot-delivery'
+    elsif t.include?('unassigned') || t.include?('overload')
+      'dot-resources'
+    else
+      'dot-default'
+    end
+  end
+  def sparkline_points(trend, w = 200, h = 40)
+    return '' if trend.length < 2
+    scores = trend.map { |t| t['score'].to_i }
+    min = scores.min; max = scores.max
+    range = (max - min).zero? ? 1 : (max - min)
+    step_x = w.to_f / (scores.length - 1)
+    scores.each_with_index.map do |s, i|
+      x = (i * step_x).round(1)
+      y = (h - 4 - ((s - min) * (h - 8) / range.to_f)).round(1)
+      "#{x},#{y}"
+    end.join(' ')
+  end
 %>
 
 <% if !configured %>
@@ -27,7 +63,7 @@
     <p><strong><%= l(:tomihub_unconfigured_title) %></strong></p>
     <p><%= l(:tomihub_unconfigured_hint) %></p>
   </div>
-<% elsif summary_error %>
+<% elsif fetch_error %>
   <div class="box tomihub-setup-prompt">
     <p><%= l(:tomihub_unreachable) %></p>
   </div>
@@ -37,25 +73,107 @@
   </div>
 <% else %>
   <div class="box" id="tomihub-health">
-    <div class="tomihub-badge tomihub-<%= level %>">
-      <span class="tomihub-score"><%= score %></span>
-      <span class="tomihub-label"><%= l(:tomihub_health_label) %> ·
-        <%= level == 'healthy' ? l(:tomihub_level_healthy) : level == 'at_risk' ? l(:tomihub_level_at_risk) : l(:tomihub_level_critical) %>
-      </span>
-    </div>
-    <% risks = (summary['top_risks'] || []).first(3) %>
-    <% if risks.any? %>
-      <ul class="tomihub-risks">
-        <% risks.each do |r| %>
-          <li>⚠ <%= r['title'] %></li>
+    <div class="tomihub-card tomihub-<%= level %>">
+      <div class="tomihub-main">
+        <div class="tomihub-score-wrap">
+          <span class="tomihub-score"><%= score %></span>
+          <span class="tomihub-level"><%= l("tomihub_level_#{level}") %></span>
+        </div>
+        <div class="tomihub-stats">
+          <span class="stat stat-open"><strong><%= stats['open'] %></strong> <%= l(:tomihub_stat_open) %></span>
+          <span class="stat stat-done"><strong><%= stats['done'] %></strong> <%= l(:tomihub_stat_done) %></span>
+          <span class="stat stat-bugs"><strong><%= stats['bugs'] %></strong> <%= l(:tomihub_stat_bugs) %></span>
+        </div>
+        <% if trend.length >= 2 %>
+          <div class="tomihub-trend">
+            <span class="tomihub-trend-label"><%= l(:tomihub_trend_14d) %></span>
+            <svg width="200" height="40" viewBox="0 0 200 40" aria-hidden="true">
+              <polyline points="<%= sparkline_points(trend) %>"
+                fill="none" stroke="#5e6ad2"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
         <% end %>
-      </ul>
+      </div>
+
+      <% risks = (summary['top_risks'] || []).first(3) %>
+      <% if risks.any? %>
+        <ul class="tomihub-risks">
+          <% risks.each do |r| %>
+            <li>
+              <span class="risk-dot <%= risk_dot_class(r['title']) %>"></span>
+              <span class="risk-text"><%= r['title'] %></span>
+              <% issues = r['issues'] || [] %>
+              <% if issues.any? %>
+                <span class="risk-issues">
+                  <% issues.each do |iss| %>
+                    <% rid = iss['redmine_id'] || iss['number'] %>
+                    <a class="issue-link" target="_blank" rel="noopener"
+                       href="/issues/<%= rid %>">
+                      #<%= rid %> <%= iss['title'].to_s.truncate(40) %>
+                    </a>
+                  <% end %>
+                </span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <p class="tomihub-cta">
+        <a class="tomihub-cta-btn" href="<%= settings['tomihub_url'] %>" target="_blank" rel="noopener">
+          <%= l(:tomihub_full_analysis) %> →
+        </a>
+        <span class="tomihub-updated"><%= l(:tomihub_updated) %> <%= summary['updated_at'].to_s[0, 16].gsub('T', ' ') %></span>
+      </p>
+    </div>
+
+    <% pages = (knowledge && knowledge['pages']) || [] %>
+    <% ai = knowledge && knowledge['ai'] %>
+    <% if pages.any? || ai %>
+      <div class="tomihub-card tomihub-kmap">
+        <p class="tomihub-kmap-title"><%= l(:tomihub_kmap_title) %>
+          <% if pages.any? %>
+            <span class="tomihub-kmap-meta">· <%= pages.size %> <%= l(:tomihub_kmap_pages_label) %></span>
+          <% end %>
+        </p>
+        <% if ai %>
+          <div class="tomihub-kmap-ai">
+            <p class="kmap-ai-summary"><%= ai['summary'] %></p>
+            <% if ai['team_overview'].present? %>
+              <p class="kmap-ai-line"><strong><%= l(:tomihub_kmap_team) %></strong> <%= ai['team_overview'] %></p>
+            <% end %>
+            <% onboarding = ai['onboarding'] || [] %>
+            <% if onboarding.any? %>
+              <p class="kmap-ai-line"><strong><%= l(:tomihub_kmap_onboarding) %></strong></p>
+              <ol class="kmap-ai-steps">
+                <% onboarding.each do |s| %>
+                  <li><%= s['action'] %></li>
+                <% end %>
+              </ol>
+            <% end %>
+          </div>
+        <% end %>
+        <% if pages.any? %>
+          <% if ai %><p class="kmap-ai-line kmap-docs-label"><%= l(:tomihub_kmap_docs) %></p><% end %>
+          <div class="tomihub-kmap-pages">
+            <% pages.each do |p| %>
+              <a class="kmap-page-row" target="_blank" rel="noopener"
+                 href="/projects/<%= project.identifier %>/wiki/<%= ERB::Util.url_encode(p['title']) %>">
+                <span class="kmap-page-title">📄 <%= p['title'] %></span>
+                <% if p['snippet'].present? %>
+                  <span class="kmap-page-snippet"><%= p['snippet'] %></span>
+                <% end %>
+              </a>
+            <% end %>
+          </div>
+        <% end %>
+        <p class="tomihub-cta">
+          <a class="tomihub-cta-btn" href="<%= settings['tomihub_url'] %>/project-knowledge?from=redmine-plugin" target="_blank" rel="noopener">
+            <%= l(:tomihub_kmap_open) %> →
+          </a>
+        </p>
+      </div>
     <% end %>
-    <p class="tomihub-cta">
-      <a href="<%= settings['tomihub_url'] %>" target="_blank" rel="noopener">
-        <%= l(:tomihub_full_analysis) %> →
-      </a>
-      <span class="tomihub-updated">· <%= l(:tomihub_updated) %> <%= summary['updated_at'].to_s[0, 16] %></span>
-    </p>
   </div>
 <% end %>

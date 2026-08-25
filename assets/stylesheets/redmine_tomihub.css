@@ -1,0 +1,191 @@
+/* TomiHub AI Co-pilot — free-tier health card */
+#tomihub-health { padding: 0; border: none; background: transparent; }
+
+.tomihub-card {
+  border: 1px solid #e0e4e8;
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+}
+
+.tomihub-main {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tomihub-score-wrap { display: flex; align-items: baseline; gap: 8px; }
+.tomihub-score {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+.tomihub-level {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.tomihub-healthy  .tomihub-score { color: #2e9e5b; }
+.tomihub-healthy  .tomihub-level { color: #2e9e5b; background: #e6f6ec; }
+.tomihub-at_risk  .tomihub-score { color: #d9822b; }
+.tomihub-at_risk  .tomihub-level { color: #b96a14; background: #fdf3e3; }
+.tomihub-critical .tomihub-score { color: #d64545; }
+.tomihub-critical .tomihub-level { color: #b32d2d; background: #fdeaea; }
+
+.tomihub-stats { display: flex; gap: 12px; }
+.tomihub-stats .stat {
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+}
+.tomihub-stats .stat strong { font-size: 16px; color: #333; margin-right: 3px; }
+.stat-bugs strong { color: #d64545; }
+
+.tomihub-trend { display: flex; align-items: center; gap: 8px; }
+.tomihub-trend-label {
+  font-size: 11px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+
+.tomihub-risks {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  border-top: 1px solid #f0f2f4;
+}
+.tomihub-risks li {
+  padding: 6px 0;
+  font-size: 12px;
+  color: #444;
+  border-bottom: 1px solid #f6f7f8;
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+.tomihub-risks .risk-icon { flex-shrink: 0; }
+
+.tomihub-cta {
+  margin: 10px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tomihub-cta-btn {
+  display: inline-block;
+  background: #5e6ad2;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.tomihub-cta-btn:hover { background: #4f5ac4; color: #fff; text-decoration: none; }
+.tomihub-updated { font-size: 11px; color: #999; }
+
+.tomihub-setup-prompt {
+  border-left: 3px solid #5e6ad2;
+  background: #f6f7fb;
+  padding: 10px 14px;
+  font-size: 12px;
+}
+
+/* Risk items with colored dots + issue links */
+.tomihub-risks .risk-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  margin-top: 4px; flex-shrink: 0;
+}
+.dot-quality  { background: #d64545; }
+.dot-delivery { background: #d9822b; }
+.dot-resources{ background: #3b82f6; }
+.dot-default  { background: #9aa0a6; }
+.tomihub-risks .risk-text { flex: 1; }
+.risk-issues { display: block; margin-top: 3px; }
+.issue-link {
+  display: inline-block;
+  font-size: 11px;
+  color: #5e6ad2;
+  text-decoration: none;
+  background: #f0f2fb;
+  border-radius: 4px;
+  padding: 1px 6px;
+  margin-right: 4px;
+}
+.issue-link:hover { background: #e3e6f7; text-decoration: none; }
+
+/* Knowledge map block */
+.tomihub-kmap { margin-top: 10px; }
+.tomihub-kmap-title {
+  font-size: 12px; font-weight: 700; color: #333; margin: 0 0 6px;
+}
+.tomihub-kmap-meta { font-weight: 400; color: #999; }
+.tomihub-kmap-pages {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.kmap-page-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 6px 10px;
+  background: #f8f9fa;
+  border: 1px solid #eceef1;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.kmap-page-row:hover { background: #f0f2fb; border-color: #d8dcf5; text-decoration: none; }
+.kmap-page-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5e6ad2;
+}
+.kmap-page-snippet {
+  font-size: 11px;
+  color: #777;
+  line-height: 1.45;
+}
+
+/* AI-generated knowledge map content */
+.tomihub-kmap-ai {
+  background: linear-gradient(135deg, #f6f7fb 0%, #fdf6f0 100%);
+  border: 1px solid #e8eaf3;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.kmap-ai-summary {
+  font-size: 12px;
+  color: #333;
+  line-height: 1.55;
+  margin: 0 0 6px;
+}
+.kmap-ai-line {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0 0 4px;
+}
+.kmap-ai-line strong { color: #444; }
+.kmap-docs-label {
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  font-size: 10px;
+  color: #999;
+  margin: 8px 0 4px;
+}
+.kmap-ai-steps {
+  margin: 2px 0 0;
+  padding-left: 18px;
+  font-size: 11px;
+  color: #666;
+  line-height: 1.5;
+}
