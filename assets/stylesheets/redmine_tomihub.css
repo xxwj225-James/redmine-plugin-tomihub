@@ -96,6 +96,21 @@
   padding: 10px 14px;
   font-size: 12px;
 }
+.tomihub-setup-cta { margin: 8px 0 0; }
+.tomihub-early-bird {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #b96a14;
+}
+.tomihub-powered {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #999;
+  border-top: 1px solid #f0f2f4;
+  padding-top: 6px;
+}
+.tomihub-powered a { color: #5e6ad2; text-decoration: none; }
+.tomihub-early-bird-inline { color: #b96a14; }
 
 /* Risk items with colored dots + issue links */
 .tomihub-risks .risk-dot {

@@ -13,6 +13,10 @@ en:
   tomihub_save: Save
   tomihub_unconfigured_title: TomiHub AI Co-pilot is not configured yet.
   tomihub_unconfigured_hint: An administrator can connect it in Administration → TomiHub.
+  tomihub_get_started: Get the free TomiHub trial
+  tomihub_early_bird: Apply before Oct 31, 2026 and get 20% off your first year.
+  tomihub_early_bird_short: early-bird 20% off
+  tomihub_powered_by: Powered by
   tomihub_level_healthy: healthy
   tomihub_level_at_risk: at risk
   tomihub_level_critical: critical

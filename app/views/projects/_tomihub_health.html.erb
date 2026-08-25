@@ -62,6 +62,12 @@
   <div class="box tomihub-setup-prompt">
     <p><strong><%= l(:tomihub_unconfigured_title) %></strong></p>
     <p><%= l(:tomihub_unconfigured_hint) %></p>
+    <p class="tomihub-setup-cta">
+      <a class="tomihub-cta-btn" href="https://tomatovector.com/tomihub" target="_blank" rel="noopener">
+        <%= l(:tomihub_get_started) %> →
+      </a>
+    </p>
+    <p class="tomihub-early-bird">🎉 <%= l(:tomihub_early_bird) %></p>
   </div>
 <% elsif fetch_error %>
   <div class="box tomihub-setup-prompt">
@@ -125,6 +131,10 @@
           <%= l(:tomihub_full_analysis) %> →
         </a>
         <span class="tomihub-updated"><%= l(:tomihub_updated) %> <%= summary['updated_at'].to_s[0, 16].gsub('T', ' ') %></span>
+      </p>
+      <p class="tomihub-powered">
+        <%= l(:tomihub_powered_by) %> <a href="https://tomatovector.com/tomihub" target="_blank" rel="noopener">TomiHub</a>
+        · <span class="tomihub-early-bird-inline">🎉 <%= l(:tomihub_early_bird_short) %></span>
       </p>
     </div>
 

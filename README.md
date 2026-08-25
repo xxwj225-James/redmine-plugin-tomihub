@@ -40,6 +40,13 @@ Redmine (this plugin) ──X-Api-Key──▶ TomiHub API
 - If TomiHub is unreachable, the card degrades to a setup hint — it never
   breaks the project page.
 
+## Get TomiHub
+
+The badge needs a TomiHub instance to talk to. Apply for the free 14-day
+self-hosted trial at <https://tomatovector.com/tomihub> — we email you the
+download link and a trial license. **Early birds applying before Oct 31, 2026
+get 20% off their first year.**
+
 ## Installation
 
 ```sh

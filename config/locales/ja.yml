@@ -13,6 +13,10 @@ ja:
   tomihub_save: 保存
   tomihub_unconfigured_title: TomiHub AI Co-pilot は未設定です。
   tomihub_unconfigured_hint: 管理者が 管理 → TomiHub で接続できます。
+  tomihub_get_started: TomiHub 無料トライアルを取得
+  tomihub_early_bird: 2026年10月31日までにお申し込みで初年度20%オフ。
+  tomihub_early_bird_short: 早期割引20%オフ
+  tomihub_powered_by: Powered by
   tomihub_level_healthy: 健全
   tomihub_level_at_risk: 注意
   tomihub_level_critical: 危険

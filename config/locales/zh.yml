@@ -13,6 +13,10 @@ zh:
   tomihub_save: 保存
   tomihub_unconfigured_title: TomiHub AI 护航尚未配置。
   tomihub_unconfigured_hint: 管理员可在 管理 → TomiHub 中完成接入。
+  tomihub_get_started: 获取 TomiHub 免费试用
+  tomihub_early_bird: 2026 年 10 月 31 日前申请试用，第一年享 8 折优惠。
+  tomihub_early_bird_short: 早鸟 8 折
+  tomihub_powered_by: 由
   tomihub_level_healthy: 健康
   tomihub_level_at_risk: 有风险
   tomihub_level_critical: 危急
