@@ -5,7 +5,7 @@
 # Full analysis lives in TomiHub UI — the plugin is the hook,
 # TomiHub is the product (wedge strategy, docs/redmine-plugin-design.md).
 #
-# MIT License — see LICENSE.
+# GPL-2.0-or-later — see LICENSE.
 # ==============================================================
 require 'redmine'
 
