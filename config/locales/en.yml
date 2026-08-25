@@ -1,0 +1,29 @@
+en:
+  tomihub_save: Save
+  tomihub_settings_saved: TomiHub settings saved.
+  tomihub_actions: Actions
+  tomihub_test_connection: Test connection
+  tomihub_trigger_sync: Sync now
+  tomihub_loading: Loading TomiHub analysis…
+  tomihub_no_data: No analysis yet — run a sync and wait for the AI pass.
+  tomihub_unreachable: TomiHub unreachable — check settings.
+  tomihub_health_label: Health
+  tomihub_full_analysis: Full analysis in TomiHub
+  tomihub_error_unauthorized: Invalid or missing TomiHub API key.
+  tomihub_error_not_configured: TomiHub URL and API key must be configured first.
+  tomihub_settings_hint: >-
+    Connect this Redmine to a self-hosted TomiHub instance on the same network.
+    Your Redmine stays unchanged — TomiHub mirrors data via the REST API and
+    runs AI analysis on the mirror.
+  tomihub_field_url: TomiHub URL
+  tomihub_field_url_hint: Self-hosted TomiHub base address, reachable from this server.
+  tomihub_field_api_key: TomiHub API Key
+  tomihub_field_api_key_hint: A redmine-readonly scoped key created in TomiHub.
+  tomihub_field_redmine_key: Redmine API Key
+  tomihub_field_redmine_key_hint: >-
+    TomiHub pulls this Redmine over REST — provide a Redmine admin API key
+    (Administration → API). Never shared outside your LAN.
+  tomihub_field_projects_hint: Comma-separated Redmine project identifiers to sync.
+  tomihub_connect_prompt_html: >-
+    <strong>TomiHub AI Co-pilot is not configured yet.</strong>
+    An administrator can connect it in Administration → TomiHub.

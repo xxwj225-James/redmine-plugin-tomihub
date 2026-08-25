@@ -1,0 +1,71 @@
+<div class="box tabular">
+  <p><%= l(:tomihub_settings_hint) %></p>
+
+  <%= form_tag tomihub_settings_path, method: :post do %>
+    <p>
+      <label for="tomihub_url"><%= l(:tomihub_field_url) %></label>
+      <%= text_field_tag :tomihub_url, @settings['tomihub_url'], size: 50,
+            placeholder: 'http://10.0.0.8:8080' %>
+      <em class="info"><%= l(:tomihub_field_url_hint) %></em>
+    </p>
+    <p>
+      <label for="api_key"><%= l(:tomihub_field_api_key) %></label>
+      <%= text_field_tag :api_key, @settings['api_key'], size: 50,
+            placeholder: 'ai_pm_xxxxxxxx' %>
+      <em class="info"><%= l(:tomihub_field_api_key_hint) %></em>
+    </p>
+    <p>
+      <label for="redmine_api_key"><%= l(:tomihub_field_redmine_key) %></label>
+      <%= text_field_tag :redmine_api_key, @settings['redmine_api_key'], size: 50 %>
+      <em class="info"><%= l(:tomihub_field_redmine_key_hint) %></em>
+    </p>
+    <%= submit_tag l(:tomihub_save) %>
+  <% end %>
+</div>
+
+<hr>
+
+<div class="box">
+  <h3><%= l(:tomihub_actions) %></h3>
+  <p>
+    <%= text_field_tag :project_keys, 'testproj', size: 40 %>
+    <em class="info"><%= l(:tomihub_field_projects_hint) %></em>
+  </p>
+  <p>
+    <%= button_tag l(:tomihub_test_connection), type: 'button',
+          id: 'tomihub-test-btn' %>
+    <%= button_tag l(:tomihub_trigger_sync), type: 'button',
+          id: 'tomihub-sync-btn' %>
+    <span id="tomihub-action-result"></span>
+  </p>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function postAction(url) {
+      var result = document.getElementById('tomihub-action-result');
+      result.textContent = '…';
+      fetch(url, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest',
+                   'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content },
+        body: new URLSearchParams({ project_keys: document.getElementById('project_keys').value })
+      })
+      .then(function(r) { return r.json().then(function(j) { return { ok: r.ok, j: j }; }); })
+      .then(function(res) {
+        if (res.ok && res.j.ok) {
+          result.textContent = '✓ ' + (res.j.hasLicense === undefined ? (res.j.status || 'OK') : (res.j.hasLicense ? 'License active' : 'No license'));
+        } else {
+          result.textContent = '✗ ' + (res.j.error || ('HTTP ' + res.status));
+        }
+      })
+      .catch(function(e) { result.textContent = '✗ ' + e; });
+    }
+    document.getElementById('tomihub-test-btn').addEventListener('click', function() {
+      postAction('<%= url_for(action: 'test_connection') %>');
+    });
+    document.getElementById('tomihub-sync-btn').addEventListener('click', function() {
+      postAction('<%= url_for(action: 'trigger_sync') %>');
+    });
+  });
+</script>

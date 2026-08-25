@@ -1,0 +1,29 @@
+ja:
+  tomihub_save: 保存
+  tomihub_settings_saved: TomiHub 設定を保存しました。
+  tomihub_actions: 操作
+  tomihub_test_connection: 接続テスト
+  tomihub_trigger_sync: 今すぐ同期
+  tomihub_loading: TomiHub 分析を読み込み中…
+  tomihub_no_data: 分析データがありません — 同期して AI 分析をお待ちください。
+  tomihub_unreachable: TomiHub に接続できません — 設定を確認してください。
+  tomihub_health_label: ヘルス
+  tomihub_full_analysis: TomiHub で完全な分析を見る
+  tomihub_error_unauthorized: TomiHub API キーが無効または未設定です。
+  tomihub_error_not_configured: TomiHub URL と API キーを先に設定してください。
+  tomihub_settings_hint: >-
+    この Redmine を同一ネットワーク上の TomiHub セルフホストインスタンスに接続します。
+    Redmine は変更不要 — TomiHub が REST API でデータをミラーリングし、
+    ミラー上で AI 分析を実行します。
+  tomihub_field_url: TomiHub URL
+  tomihub_field_url_hint: このサーバーから到達可能な TomiHub のベースアドレス。
+  tomihub_field_api_key: TomiHub API キー
+  tomihub_field_api_key_hint: TomiHub で作成した redmine-readonly スコープのキー。
+  tomihub_field_redmine_key: Redmine API キー
+  tomihub_field_redmine_key_hint: >-
+    TomiHub が REST 経由でこの Redmine を取得します — Redmine 管理者の
+    API キーを入力してください（管理 → API）。LAN 外には共有しないでください。
+  tomihub_field_projects_hint: 同期する Redmine プロジェクト識別子（カンマ区切り）。
+  tomihub_connect_prompt_html: >-
+    <strong>TomiHub AI Co-pilot は未設定です。</strong>
+    管理者が 管理 → TomiHub で接続できます。

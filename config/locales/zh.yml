@@ -1,0 +1,28 @@
+zh:
+  tomihub_save: 保存
+  tomihub_settings_saved: TomiHub 设置已保存。
+  tomihub_actions: 操作
+  tomihub_test_connection: 测试连接
+  tomihub_trigger_sync: 立即同步
+  tomihub_loading: 正在加载 TomiHub 分析…
+  tomihub_no_data: 暂无分析数据 — 请先同步并等待 AI 分析。
+  tomihub_unreachable: TomiHub 无法访问 — 请检查设置。
+  tomihub_health_label: 健康
+  tomihub_full_analysis: 在 TomiHub 查看完整分析
+  tomihub_error_unauthorized: TomiHub API Key 无效或缺失。
+  tomihub_error_not_configured: 请先配置 TomiHub 地址和 API Key。
+  tomihub_settings_hint: >-
+    将本 Redmine 连接到同网络的 TomiHub 自托管实例。
+    您的 Redmine 保持不变 — TomiHub 通过 REST API 镜像数据并对镜像运行 AI 分析。
+  tomihub_field_url: TomiHub 地址
+  tomihub_field_url_hint: 自托管 TomiHub 实例地址（本服务器可访问）。
+  tomihub_field_api_key: TomiHub API Key
+  tomihub_field_api_key_hint: 在 TomiHub 中创建的 redmine-readonly 权限密钥。
+  tomihub_field_redmine_key: Redmine API Key
+  tomihub_field_redmine_key_hint: >-
+    TomiHub 通过 REST 拉取本 Redmine 数据 — 请提供 Redmine 管理员 API Key
+    （管理 → API）。仅在内网使用。
+  tomihub_field_projects_hint: 要同步的 Redmine 项目标识符（逗号分隔）。
+  tomihub_connect_prompt_html: >-
+    <strong>TomiHub AI 护航尚未配置。</strong>
+    管理员可在 管理 → TomiHub 中完成接入。

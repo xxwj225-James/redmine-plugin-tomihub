@@ -1,0 +1,53 @@
+<%
+  # Free-tier summary badge. The plugin is a read-only window into TomiHub's
+  # analysis of the mirrored copy of THIS project (matched by redmine_id).
+  settings = Setting.plugin_redmine_tomihub
+  configured = settings['tomihub_url'].present? && settings['api_key'].present?
+%>
+<% if configured %>
+  <div id="tomihub-health" class="box" data-redmine-id="<%= project.id %>"
+       data-lang="<%= ::I18n.locale.to_s.split('-').first %>"
+       data-tomihub-url="<%= settings['tomihub_url'] %>">
+    <div class="tomihub-loading"><%= l(:tomihub_loading) %></div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var el = document.getElementById('tomihub-health');
+      if (!el) return;
+      var url = el.dataset.tomihubUrl.replace(/\/+$/, '') +
+        '/api/v1/ai/redmine/project-summary?redmine_id=' +
+        encodeURIComponent(el.dataset.redmineId) + '&lang=' + encodeURIComponent(el.dataset.lang);
+      fetch(url, { headers: { 'X-Api-Key': '<%= settings['api_key'] %>', 'Accept': 'application/json' } })
+        .then(function(r) { return r.json(); })
+        .then(function(j) {
+          var d = j.data || {};
+          if (d.health_score === undefined || d.health_score === null) {
+            el.innerHTML = '<p class="nodata"><%= l(:tomihub_no_data) %></p>';
+            return;
+          }
+          var level = d.health_level === 'healthy' ? 'healthy'
+                    : d.health_level === 'at_risk' ? 'at-risk' : 'critical';
+          var html = '<div class="tomihub-badge ' + level + '">';
+          html += '<span class="score">' + d.health_score + '</span>';
+          html += '<span class="label"><%= l(:tomihub_health_label) %> · ' + level + '</span>';
+          html += '</div>';
+          if ((d.top_risks || []).length > 0) {
+            html += '<ul class="tomihub-risks">';
+            (d.top_risks || []).slice(0, 3).forEach(function(r) {
+              html += '<li>⚠ ' + (r.title || '') + '</li>';
+            });
+            html += '</ul>';
+          }
+          html += '<p class="tomihub-cta"><a href="' + el.dataset.tomihubUrl + '" target="_blank" rel="noopener"><%= l(:tomihub_full_analysis) %> →</a></p>';
+          el.innerHTML = html;
+        })
+        .catch(function() {
+          el.innerHTML = '<p class="nodata"><%= l(:tomihub_unreachable) %></p>';
+        });
+    });
+  </script>
+<% else %>
+  <div class="box tomihub-setup-prompt">
+    <%= l(:tomihub_connect_prompt_html) %>
+  </div>
+<% end %>
