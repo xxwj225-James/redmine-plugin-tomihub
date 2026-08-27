@@ -63,6 +63,14 @@ zh:
   tomihub_guide_config_3: 粘贴在 TomiHub 创建的 redmine-readonly API Key
   tomihub_guide_config_4: （可选）填写本 Redmine 管理员 API Key 并点击立即同步
   tomihub_guide_admin_open: 打开 TomiHub 设置
+  tomihub_kmap_progress: 进度
+  tomihub_kmap_expertise: 团队专长
+  tomihub_kmap_architecture: 架构
+  tomihub_kmap_decisions: 关键决策
+  tomihub_kmap_complex: 复杂 Issue
+  tomihub_kmap_comments: 条评论
+  tomihub_kmap_changes: 次变更
+  tomihub_kmap_missing: 缺失文档
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI 护航尚未配置。</strong>
     管理员可在 管理 → TomiHub 中完成接入。

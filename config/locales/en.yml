@@ -64,6 +64,14 @@ en:
   tomihub_guide_config_3: Paste the redmine-readonly API key created in TomiHub
   tomihub_guide_config_4: Optionally add this Redmine admin API key and click Sync now
   tomihub_guide_admin_open: Open TomiHub settings
+  tomihub_kmap_progress: Progress
+  tomihub_kmap_expertise: Expertise
+  tomihub_kmap_architecture: Architecture
+  tomihub_kmap_decisions: Key decisions
+  tomihub_kmap_complex: Complex issues
+  tomihub_kmap_comments: comments
+  tomihub_kmap_changes: changes
+  tomihub_kmap_missing: Missing docs
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI Co-pilot is not configured yet.</strong>
     An administrator can connect it in Administration → TomiHub.

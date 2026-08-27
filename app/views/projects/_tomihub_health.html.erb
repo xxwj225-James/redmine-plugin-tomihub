@@ -171,8 +171,40 @@
         <% if ai %>
           <div class="tomihub-kmap-ai">
             <p class="kmap-ai-summary"><%= ai['summary'] %></p>
+            <% if ai['progress'].present? %>
+              <p class="kmap-ai-line"><strong><%= l(:tomihub_kmap_progress) %></strong> <%= ai['progress'] %></p>
+            <% end %>
             <% if ai['team_overview'].present? %>
               <p class="kmap-ai-line"><strong><%= l(:tomihub_kmap_team) %></strong> <%= ai['team_overview'] %></p>
+            <% end %>
+            <% if ai['team_expertise'].present? %>
+              <p class="kmap-ai-line"><strong><%= l(:tomihub_kmap_expertise) %></strong> <%= ai['team_expertise'] %></p>
+            <% end %>
+            <% if ai['architecture'].present? %>
+              <p class="kmap-ai-line"><strong><%= l(:tomihub_kmap_architecture) %></strong> <%= ai['architecture'] %></p>
+            <% end %>
+            <% decisions = ai['key_decisions'] || [] %>
+            <% if decisions.any? %>
+              <p class="kmap-ai-line"><strong><%= l(:tomihub_kmap_decisions) %></strong></p>
+              <ul class="kmap-ai-steps">
+                <% decisions.each do |kd| %>
+                  <li><%= kd.is_a?(Hash) ? (kd['decision'] || kd['title'] || kd.to_s) : kd.to_s %></li>
+                <% end %>
+              </ul>
+            <% end %>
+            <% complex = ai['complex_issues'] || [] %>
+            <% if complex.any? %>
+              <p class="kmap-ai-line"><strong><%= l(:tomihub_kmap_complex) %></strong></p>
+              <ul class="kmap-ai-steps">
+                <% complex.each do |ci| %>
+                  <li>#<%= ci['number'] %> <%= ci['title'].to_s.truncate(48) %>
+                    <span class="kmap-ai-meta">(<%= ci['comments'] %> <%= l(:tomihub_kmap_comments) %> · <%= ci['changes'] %> <%= l(:tomihub_kmap_changes) %>)</span>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+            <% if ai['missing'].present? %>
+              <p class="kmap-ai-line"><strong><%= l(:tomihub_kmap_missing) %></strong> <%= ai['missing'] %></p>
             <% end %>
             <% onboarding = ai['onboarding'] || [] %>
             <% if onboarding.any? %>

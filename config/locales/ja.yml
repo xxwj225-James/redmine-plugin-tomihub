@@ -64,6 +64,14 @@ ja:
   tomihub_guide_config_3: TomiHub で作成した redmine-readonly API キーを貼り付け
   tomihub_guide_config_4: （任意）この Redmine の管理者 API キーを入力し「今すぐ同期」
   tomihub_guide_admin_open: TomiHub 設定を開く
+  tomihub_kmap_progress: 進捗
+  tomihub_kmap_expertise: チーム専門性
+  tomihub_kmap_architecture: アーキテクチャ
+  tomihub_kmap_decisions: 重要な決定
+  tomihub_kmap_complex: 複雑な課題
+  tomihub_kmap_comments: コメント
+  tomihub_kmap_changes: 変更
+  tomihub_kmap_missing: 未整備ドキュメント
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI Co-pilot は未設定です。</strong>
     管理者が 管理 → TomiHub で接続できます。
