@@ -60,7 +60,7 @@ get 20% off their first year.**
 
 ```sh
 cd /path/to/redmine/plugins
-git clone https://github.com/tomatovector/redmine_tomihub.git redmine_tomihub
+git clone https://github.com/xxwj225-James/redmine-plugin-tomihub.git redmine_tomihub
 cd ..
 bundle install        # no new gems — the client uses net/http only
 bundle exec rake redmine:plugins:migrate RAILS_ENV=production
