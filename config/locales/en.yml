@@ -72,6 +72,8 @@ en:
   tomihub_kmap_comments: comments
   tomihub_kmap_changes: changes
   tomihub_kmap_missing: Missing docs
+  tomihub_field_full_url: Full-analysis link (optional)
+  tomihub_field_full_url_hint: Overrides the CTA target on project pages. Leave empty to use the TomiHub URL above.
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI Co-pilot is not configured yet.</strong>
     An administrator can connect it in Administration → TomiHub.

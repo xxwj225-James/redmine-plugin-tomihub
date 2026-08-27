@@ -71,6 +71,8 @@ zh:
   tomihub_kmap_comments: 条评论
   tomihub_kmap_changes: 次变更
   tomihub_kmap_missing: 缺失文档
+  tomihub_field_full_url: 完整分析链接（可选）
+  tomihub_field_full_url_hint: 覆盖项目页「完整分析」按钮的跳转目标。留空则使用上面的 TomiHub 地址。
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI 护航尚未配置。</strong>
     管理员可在 管理 → TomiHub 中完成接入。

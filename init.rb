@@ -16,7 +16,7 @@ Redmine::Plugin.register :redmine_tomihub do
   url 'https://tomatovector.com'
   author_url 'https://tomatovector.com'
 
-  settings default: { 'tomihub_url' => '', 'api_key' => '', 'redmine_api_key' => '' },
+  settings default: { 'tomihub_url' => '', 'full_url' => '', 'api_key' => '', 'redmine_api_key' => '' },
            partial: 'settings/redmine_tomihub'
 
   # Admin-only settings page (plugin configuration)

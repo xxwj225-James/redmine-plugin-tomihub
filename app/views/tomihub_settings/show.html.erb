@@ -11,6 +11,12 @@
       <em class="info"><%= l(:tomihub_field_url_hint) %></em>
     </p>
     <p>
+      <label for="full_url"><%= l(:tomihub_field_full_url) %></label>
+      <%= text_field_tag :full_url, @settings['full_url'], size: 50,
+            placeholder: 'https://hub.example.com/project-health' %>
+      <em class="info"><%= l(:tomihub_field_full_url_hint) %></em>
+    </p>
+    <p>
       <label for="api_key"><%= l(:tomihub_field_api_key) %></label>
       <%= text_field_tag :api_key, @settings['api_key'], size: 50,
             placeholder: 'ai_pm_xxxxxxxx' %>

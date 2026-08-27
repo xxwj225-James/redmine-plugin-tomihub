@@ -148,7 +148,13 @@
       <% end %>
 
       <p class="tomihub-cta">
-        <a class="tomihub-cta-btn" href="<%= settings['tomihub_url'] %>" target="_blank" rel="noopener">
+        <%
+          # "Full analysis" link — admin-configurable (full_url setting);
+          # falls back to the TomiHub base URL, then the built-in guide page.
+          full_url = settings['full_url'].presence || settings['tomihub_url'].presence
+          full_url = tomihub_guide_path if full_url.blank?
+        %>
+        <a class="tomihub-cta-btn" href="<%= full_url %>" target="_blank" rel="noopener">
           <%= l(:tomihub_full_analysis) %> →
         </a>
         <span class="tomihub-updated"><%= l(:tomihub_updated) %> <%= summary['updated_at'].to_s[0, 16].gsub('T', ' ') %></span>

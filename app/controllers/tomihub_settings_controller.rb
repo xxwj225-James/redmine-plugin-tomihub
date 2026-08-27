@@ -21,6 +21,7 @@ class TomihubSettingsController < ApplicationController
   def save
     Setting.plugin_redmine_tomihub = {
       'tomihub_url' => params[:tomihub_url].to_s.strip,
+      'full_url' => params[:full_url].to_s.strip,
       'api_key' => params[:api_key].to_s.strip,
       'redmine_api_key' => params[:redmine_api_key].to_s.strip,
     }
