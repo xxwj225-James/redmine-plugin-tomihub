@@ -2,10 +2,20 @@
 # Stores: tomihub_url, api_key (plugin read-only key), redmine_api_key
 # (used by TomiHub-side mirror sync to pull THIS Redmine via REST).
 class TomihubSettingsController < ApplicationController
-  before_action :require_admin
+  before_action :require_admin, except: [:guide]
 
   def show
     @settings = Setting.plugin_redmine_tomihub
+  end
+
+  # PUBLIC guide page — shown to users whose TomiHub is not configured
+  # yet (health card CTA points here instead of a dead TomiHub URL).
+  # Static content: what TomiHub is, how to install it, and where an
+  # admin fills in the connection settings.
+  def guide
+    @settings = Setting.plugin_redmine_tomihub
+    @configured = @settings['tomihub_url'].present? && @settings['api_key'].present?
+    @is_admin = User.current.admin?
   end
 
   def save

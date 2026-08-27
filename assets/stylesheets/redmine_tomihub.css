@@ -1,6 +1,17 @@
 /* TomiHub AI Co-pilot — free-tier health card */
 #tomihub-health { padding: 0; border: none; background: transparent; }
 
+/* ─── Guide page (shown when TomiHub is not connected) ─── */
+.tomihub-guide { max-width: 720px; padding: 20px 24px; }
+.tomihub-guide-lead { font-size: 13px; color: #444; margin: 8px 0 12px; }
+.tomihub-guide-status { font-size: 13px; font-weight: 600; padding: 8px 12px; border-radius: 6px; margin: 8px 0 16px; }
+.tomihub-guide-ok   { background: #e6f6ec; color: #2e9e5b; }
+.tomihub-guide-warn { background: #fdf3e3; color: #b96a14; }
+.tomihub-guide h3 { font-size: 14px; margin: 18px 0 6px; }
+.tomihub-guide-list { margin: 0; padding-left: 22px; font-size: 12.5px; color: #444; line-height: 1.9; }
+.tomihub-cta-secondary { background: #fff; color: #5e6ad2; border: 1px solid #5e6ad2; margin-left: 8px; }
+.tomihub-cta-secondary:hover { background: #f0f2fb; color: #4f5ac4; }
+
 .tomihub-card {
   border: 1px solid #e0e4e8;
   border-radius: 8px;

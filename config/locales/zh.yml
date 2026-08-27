@@ -45,6 +45,24 @@ zh:
     （管理 → API）。仅在内网使用。
   tomihub_field_projects: 项目标识符
   tomihub_field_projects_hint: 要同步的 Redmine 项目标识符（逗号分隔）。
+  tomihub_guide_lead: 基于你的真实 Redmine 数据的 AI 健康评分、风险预警和知识地图——分析在自托管的 TomiHub 实例上运行，你的 Redmine 保持不变。
+  tomihub_guide_configured: 本 Redmine 已连接 TomiHub —— 项目页的健康卡片已生效。
+  tomihub_guide_not_configured: 本 Redmine 尚未连接 TomiHub，请联系管理员完成以下配置。
+  tomihub_guide_what_title: TomiHub 能带来什么
+  tomihub_guide_what_1: 项目健康评分（含 14 天趋势与六维明细）
+  tomihub_guide_what_2: 风险预警，直达背后对应的 Redmine issue
+  tomihub_guide_what_3: AI 生成的项目知识地图，加速新人上手与决策
+  tomihub_guide_install_title: 安装 TomiHub
+  tomihub_guide_install_1: 在 TomiHub 官网申请免费试用，邮件会收到镜像包和试用 License。
+  tomihub_guide_install_2: 在 Linux 主机（Docker 24+）解压并运行 ./install.sh
+  tomihub_guide_install_3: 将 License 文件放入部署目录，运行 docker compose up -d
+  tomihub_guide_install_4: 打开 TomiHub 界面，在 API Keys 页面创建 redmine-readonly 密钥
+  tomihub_guide_config_title: 连接本 Redmine（管理员操作）
+  tomihub_guide_config_1: 进入 管理 → TomiHub
+  tomihub_guide_config_2: 填写本服务器可访问的 TomiHub 地址
+  tomihub_guide_config_3: 粘贴在 TomiHub 创建的 redmine-readonly API Key
+  tomihub_guide_config_4: （可选）填写本 Redmine 管理员 API Key 并点击立即同步
+  tomihub_guide_admin_open: 打开 TomiHub 设置
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI 护航尚未配置。</strong>
     管理员可在 管理 → TomiHub 中完成接入。

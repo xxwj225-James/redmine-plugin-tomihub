@@ -1,0 +1,47 @@
+<%= stylesheet_link_tag 'redmine_tomihub', plugin: :redmine_tomihub %>
+
+<div class="box tomihub-guide">
+  <h2>TomiHub AI Co-pilot</h2>
+  <p class="tomihub-guide-lead">
+    <%= l(:tomihub_guide_lead) %>
+  </p>
+
+  <% if @configured %>
+    <p class="tomihub-guide-status tomihub-guide-ok">✓ <%= l(:tomihub_guide_configured) %></p>
+  <% else %>
+    <p class="tomihub-guide-status tomihub-guide-warn">⚠ <%= l(:tomihub_guide_not_configured) %></p>
+  <% end %>
+
+  <h3><%= l(:tomihub_guide_what_title) %></h3>
+  <ul class="tomihub-guide-list">
+    <li><%= l(:tomihub_guide_what_1) %></li>
+    <li><%= l(:tomihub_guide_what_2) %></li>
+    <li><%= l(:tomihub_guide_what_3) %></li>
+  </ul>
+
+  <h3><%= l(:tomihub_guide_install_title) %></h3>
+  <ol class="tomihub-guide-list">
+    <li><%= l(:tomihub_guide_install_1) %></li>
+    <li><%= l(:tomihub_guide_install_2) %></li>
+    <li><%= l(:tomihub_guide_install_3) %></li>
+    <li><%= l(:tomihub_guide_install_4) %></li>
+  </ol>
+
+  <h3><%= l(:tomihub_guide_config_title) %></h3>
+  <ol class="tomihub-guide-list">
+    <li><%= l(:tomihub_guide_config_1) %></li>
+    <li><%= l(:tomihub_guide_config_2) %></li>
+    <li><%= l(:tomihub_guide_config_3) %></li>
+    <li><%= l(:tomihub_guide_config_4) %></li>
+  </ol>
+
+  <p class="tomihub-cta">
+    <% if @is_admin %>
+      <a class="tomihub-cta-btn" href="<%= tomihub_settings_path %>"><%= l(:tomihub_guide_admin_open) %></a>
+    <% end %>
+    <a class="tomihub-cta-btn tomihub-cta-secondary" href="https://tomatovector.com/tomihub" target="_blank" rel="noopener">
+      <%= l(:tomihub_get_started) %> →
+    </a>
+  </p>
+  <p class="tomihub-early-bird">🎉 <%= l(:tomihub_early_bird) %></p>
+</div>

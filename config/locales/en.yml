@@ -46,6 +46,24 @@ en:
     (Administration → API). Never shared outside your LAN.
   tomihub_field_projects: Project identifiers
   tomihub_field_projects_hint: Comma-separated Redmine project identifiers to sync.
+  tomihub_guide_lead: AI health scores, risk alerts and a knowledge map over your real Redmine data — the analysis runs on a self-hosted TomiHub instance, your Redmine stays unchanged.
+  tomihub_guide_configured: TomiHub is configured for this Redmine — the health card on project pages is live.
+  tomihub_guide_not_configured: TomiHub is not connected to this Redmine yet. Ask an administrator to complete the setup below.
+  tomihub_guide_what_title: What TomiHub adds
+  tomihub_guide_what_1: Project health score with a 14-day trend and six-dimension breakdown
+  tomihub_guide_what_2: Risk alerts that link to the exact Redmine issues behind them
+  tomihub_guide_what_3: AI-generated knowledge maps for onboarding and decision making
+  tomihub_guide_install_title: Installing TomiHub
+  tomihub_guide_install_1: Apply for the free trial on the TomiHub site — you will receive the image bundle and a trial license by email.
+  tomihub_guide_install_2: Unpack on a Linux host (Docker 24+) and run ./install.sh
+  tomihub_guide_install_3: Copy the license file into the deploy directory and run docker compose up -d
+  tomihub_guide_install_4: Open the TomiHub UI and create a redmine-readonly API key (API Keys page)
+  tomihub_guide_config_title: Connecting this Redmine (administrator)
+  tomihub_guide_config_1: Go to Administration → TomiHub
+  tomihub_guide_config_2: Fill in the TomiHub URL reachable from this server
+  tomihub_guide_config_3: Paste the redmine-readonly API key created in TomiHub
+  tomihub_guide_config_4: Optionally add this Redmine admin API key and click Sync now
+  tomihub_guide_admin_open: Open TomiHub settings
   tomihub_connect_prompt_html: >-
     <strong>TomiHub AI Co-pilot is not configured yet.</strong>
     An administrator can connect it in Administration → TomiHub.
