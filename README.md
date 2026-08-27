@@ -10,16 +10,25 @@ in the TomiHub UI.
 
 ![health badge](docs/health-badge.png)
 
+*The health card on a Redmine project page — score, trend, risks with
+issue links, and the AI knowledge map.*
+
+![guide page](docs/guide-page.png)
+
+*What users see before TomiHub is connected: a built-in guide page with
+install and configuration steps.*
+
 ## What you get
 
 On every project overview page:
 
 - **Health score + level** (healthy / at risk / critical)
-- **14-day trend sparkline**
+- **14-day trend sparkline** (with score ticks and date range)
 - **Top risks** with colored category dots and clickable links to the
-  Redmine issues they reference
-- **Project knowledge map** — AI-generated overview (summary, team,
-  onboarding path) plus your mirrored wiki pages with content snippets
+  Redmine issues they reference (one per line)
+- **Project knowledge map** — AI-generated overview (summary, progress,
+  team, expertise, architecture, complex issues, onboarding path) plus
+  your mirrored wiki pages with content snippets
 - **Stats** — open / done / bugs
 
 Languages: English, 中文, 日本語.
