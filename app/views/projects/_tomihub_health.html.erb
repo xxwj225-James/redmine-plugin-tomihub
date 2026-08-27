@@ -44,17 +44,26 @@
       'dot-default'
     end
   end
-  def sparkline_points(trend, w = 200, h = 40)
+  def sparkline_points(trend, plot_l = 30, plot_r = 226, plot_t = 8, plot_b = 52)
     return '' if trend.length < 2
     scores = trend.map { |t| t['score'].to_i }
     min = scores.min; max = scores.max
     range = (max - min).zero? ? 1 : (max - min)
-    step_x = w.to_f / (scores.length - 1)
+    step_x = (plot_r - plot_l).to_f / (scores.length - 1)
     scores.each_with_index.map do |s, i|
-      x = (i * step_x).round(1)
-      y = (h - 4 - ((s - min) * (h - 8) / range.to_f)).round(1)
+      x = (plot_l + i * step_x).round(1)
+      y = (plot_b - ((s - min) * (plot_b - plot_t) / range.to_f)).round(1)
       "#{x},#{y}"
     end.join(' ')
+  end
+  def trend_minmax(trend)
+    scores = trend.map { |t| t['score'].to_i }
+    [scores.min, scores.max]
+  end
+  def trend_dates(trend)
+    first = (trend.first && trend.first['time'].to_s)[0, 10]
+    last = (trend.last && trend.last['time'].to_s)[0, 10]
+    [first, last]
   end
 %>
 
@@ -91,9 +100,19 @@
           <span class="stat stat-bugs"><strong><%= stats['bugs'] %></strong> <%= l(:tomihub_stat_bugs) %></span>
         </div>
         <% if trend.length >= 2 %>
+          <% tmin, tmax = trend_minmax(trend) %>
+          <% tfirst, tlast = trend_dates(trend) %>
           <div class="tomihub-trend">
             <span class="tomihub-trend-label"><%= l(:tomihub_trend_14d) %></span>
-            <svg width="200" height="40" viewBox="0 0 200 40" aria-hidden="true">
+            <svg width="236" height="66" viewBox="0 0 236 66" aria-hidden="true">
+              <!-- y-axis: score ticks (min at bottom, max at top) -->
+              <line x1="26" y1="8" x2="226" y2="8" class="trend-grid"/>
+              <line x1="26" y1="52" x2="226" y2="52" class="trend-grid"/>
+              <text x="22" y="12" class="trend-axis" text-anchor="end"><%= tmax %></text>
+              <text x="22" y="55" class="trend-axis" text-anchor="end"><%= tmin %></text>
+              <!-- x-axis: date range -->
+              <text x="30" y="64" class="trend-axis"><%= tfirst %></text>
+              <text x="226" y="64" class="trend-axis" text-anchor="end"><%= tlast %></text>
               <polyline points="<%= sparkline_points(trend) %>"
                 fill="none" stroke="#5e6ad2"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -106,12 +125,14 @@
       <% if risks.any? %>
         <ul class="tomihub-risks">
           <% risks.each do |r| %>
-            <li>
-              <span class="risk-dot <%= risk_dot_class(r['title']) %>"></span>
-              <span class="risk-text"><%= r['title'] %></span>
+            <li class="risk-item">
+              <div class="risk-head">
+                <span class="risk-dot <%= risk_dot_class(r['title']) %>"></span>
+                <span class="risk-text"><%= r['title'] %></span>
+              </div>
               <% issues = r['issues'] || [] %>
               <% if issues.any? %>
-                <span class="risk-issues">
+                <div class="risk-issues">
                   <% issues.each do |iss| %>
                     <% rid = iss['redmine_id'] || iss['number'] %>
                     <a class="issue-link" target="_blank" rel="noopener"
@@ -119,7 +140,7 @@
                       #<%= rid %> <%= iss['title'].to_s.truncate(40) %>
                     </a>
                   <% end %>
-                </span>
+                </div>
               <% end %>
             </li>
           <% end %>

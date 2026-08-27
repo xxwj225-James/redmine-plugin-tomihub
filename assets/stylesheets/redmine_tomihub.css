@@ -46,12 +46,21 @@
 .tomihub-stats .stat strong { font-size: 16px; color: #333; margin-right: 3px; }
 .stat-bugs strong { color: #d64545; }
 
-.tomihub-trend { display: flex; align-items: center; gap: 8px; }
+.tomihub-trend { display: flex; align-items: flex-start; gap: 8px; }
 .tomihub-trend-label {
   font-size: 11px;
   color: #999;
   text-transform: uppercase;
   letter-spacing: .03em;
+  padding-top: 24px;
+}
+.tomihub-trend .trend-axis {
+  font-size: 9px;
+  fill: #b0b4ba;
+}
+.tomihub-trend .trend-grid {
+  stroke: #eef0f3;
+  stroke-width: 1;
 }
 
 .tomihub-risks {
@@ -65,11 +74,14 @@
   font-size: 12px;
   color: #444;
   border-bottom: 1px solid #f6f7f8;
+}
+.tomihub-risks .risk-icon { flex-shrink: 0; }
+/* risk title row (dot + text), issue links stack BELOW it */
+.risk-head {
   display: flex;
   gap: 6px;
   align-items: flex-start;
 }
-.tomihub-risks .risk-icon { flex-shrink: 0; }
 
 .tomihub-cta {
   margin: 10px 0 0;
