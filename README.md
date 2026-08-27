@@ -1,5 +1,7 @@
 # TomiHub AI Co-pilot for Redmine
 
+[![Available on redmine.org](https://img.shields.io/badge/redmine.org-plugin%20directory-507AAA?logo=redmine)](https://www.redmine.org/plugins/redmine_tomihub)
+
 AI-powered project health badge and knowledge map for Redmine, backed by a
 self-hosted [TomiHub](https://tomatovector.com) instance on the same LAN.
 
